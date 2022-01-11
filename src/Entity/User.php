@@ -12,6 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    const REGISTRO_EXITO = 'Se ha registrado exitosamente';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -49,6 +51,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Comentarios", mappedBy="user")
      */
     protected $comentarios;
+
+    public function __construct()
+    {
+        $this->baneado = (false);
+        $this->roles = (['ROLE_USER']);
+    }
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Posts", mappedBy="user")
