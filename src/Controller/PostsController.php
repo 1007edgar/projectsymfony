@@ -57,4 +57,27 @@ class PostsController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+     /**
+     * @Route("/post/{id}", name="verPost")
+     */
+    public function verPost($id){
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository(Posts::class)->find($id);
+        return $this->render('posts/verPost.html.twig', [
+            'post' => $post,
+        ]);
+    }
+
+    /**
+     * @Route("/mis-posts", name="misPosts")
+     */
+    public function misPosts(){
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $posts = $em->getRepository(Posts::class)->findBy(['user'=>$user]);
+        return $this->render('posts/misPosts.html.twig', [
+            'posts' => $posts,
+        ]);
+    }
 }
