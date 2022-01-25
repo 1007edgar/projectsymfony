@@ -1,1 +1,19 @@
-{{ dump(post) }}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} - Dashboard{% endblock %}
+
+{% block body %}
+{{parent()}}
+{{dump(post)}}
+    {# table body #}
+       
+            
+                <td>{{ post.id }}</td>
+                <td>{{ post.titulo }}</td>
+                <td><img class="rounded" src="{{ asset('uploads/photos/'~post.foto) }}" width="150px"></td>
+                <td>{{ post.fechapublicacion | date('Y-m-d') }}</td>
+                <div>{{ post.contenido }}</div>
+            
+
+
+{% endblock %}

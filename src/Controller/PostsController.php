@@ -62,7 +62,7 @@ class PostsController extends AbstractController
      * @Route("/post/{id}", name="verPost")
      */
     public function verPost($id){
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();//emtity manager
         $post = $em->getRepository(Posts::class)->find($id);
         return $this->render('posts/verPost.html.twig', [
             'post' => $post,
