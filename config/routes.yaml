@@ -10,3 +10,6 @@ blog_list:
     # if the action is implemented as the __invoke() method of the
     # controller class, you can skip the '::method_name' part:
     # controller: App\Controller\BlogController
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing-sf4.xml"

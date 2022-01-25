@@ -4,9 +4,18 @@
 
 {% block body %}
 {{parent()}}
+{% set LikesDeEstePost = post.likes | split(',') %} {#Nueva variable, y el split significa que cada vez que encuentre una coma, vaya alamacenando ese número en un nuevo array#}
 {{dump(post)}}
     {# table body #}
-       
+    <div class="" onclick="MeGusta({{ post.id }})">
+       <strong>
+        {% if app.user.id in LikesDeEstePost %}{#Si el usuario actualmente logueado está en los kies de este post? #}
+            # Te gustó esto
+            {% else %}
+            # Dale Like
+        {% endif %}
+       </strong> 
+    </div>   
             
                 <td>{{ post.id }}</td>
                 <td>{{ post.titulo }}</td>
@@ -16,4 +25,11 @@
             
 
 
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ asset('jquery/ajax-call.js') }}"></script>
 {% endblock %}
