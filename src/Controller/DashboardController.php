@@ -30,7 +30,7 @@ class DashboardController extends AbstractController
             );
         
             return $this->render('dashboard/index.html.twig', [
-                'controller_name' => 'DashboardController',
+                'controller_name' => 'Posts Creados por Usuarios',
                 //'posts' => $posts,
                 'pagination' => $pagination,
             ]);

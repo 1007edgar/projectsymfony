@@ -6,10 +6,78 @@
 {{parent()}}
 {% set LikesDeEstePost = post.likes | split(',') %} {#Nueva variable, y el split significa que cada vez que encuentre una coma, vaya alamacenando ese número en un nuevo array#}
 {{dump(post)}}
+    <div class="container">
+        <div class="row">
+            <!-- Columna que describe el post -->
+            <div class="col-lg-8">
+                <!-- Título -->
+                <h2 class="mt-4">{{ post.titulo }}</h2>
+                <hr>
+                <!-- Date/Time -->
+                <p>Posted on {{ post.fechapublicacion | date('F jS \\a\\t g:ia') }}</p>
+                <hr>
+                <img class="rounded" src="{{ asset('uploads/photos/'~post.foto) }}"></td>               
+                <hr>
+                <!-- Contenido del post -->
+                <p class="lead">
+                    {{ post.contenido }}
+                </p>
+                <hr>
+                <!-- Formulario para Comentario -->
+                
+                <div class="card my-4">
+                    <h5 class="card-header">{{ form(comentarios) }}</h5>
+                    <!--<div class="card-body">
+                        <form>
+                            <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Envíar</button>
+                        </form>
+                    </div>-->
+                </div>
+                <!-- Solo Comentario -->
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <h5 class="mt-0">Commenter Name</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </div>
+            </div>
+        
+
+            <!-- Columna barra lateral -->
+            <div class="col-md-4">
+                <div class="card my-4">
+                    <h5 class="card-header">LO que sea</h5>
+                <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                    <a href="#">Simba</a>
+                                    </li>
+                                    <li>
+                                    <a href="#">Nyati</a>
+                                    </li>
+                                    <li>
+                                    <a href="#">Faru</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ dump(mis_comentarios) }}
+  
     {# table body #}
     <div class="" onclick="MeGusta({{ post.id }})">
        <strong>
-        {% if app.user.id in LikesDeEstePost %}{#Si el usuario actualmente logueado está en los kies de este post? #}
+        {% if app.user.id in LikesDeEstePost %}{#Si el usuario actualmente logueado está en los likes de este post? #}
             # Te gustó esto
             {% else %}
             # Dale Like

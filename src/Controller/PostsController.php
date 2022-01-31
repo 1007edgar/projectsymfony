@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comentarios;
 use App\Entity\Posts;
+use App\Form\ComentariosType;
 use App\Form\PostsType;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -54,7 +57,7 @@ class PostsController extends AbstractController
             return $this->redirectToRoute('dashboard');
         }
         return $this->render('posts/index.html.twig', [
-            'controller_name' => 'PostsController',
+            'controller_name' => 'Registrar Nuevo Post',
             'form' => $form->createView(),
         ]);
     }
@@ -62,12 +65,34 @@ class PostsController extends AbstractController
      /**
      * @Route("/post/{id}", name="verPost")
      */
-    public function verPost($id){
+    public function verPost($id, Request $request){
         $em = $this->getDoctrine()->getManager();//emtity manager
         $post = $em->getRepository(Posts::class)->find($id);
+        $comentarios = new Comentarios();
+        $form = $this->createForm(ComentariosType::class, $comentarios);
+        $form->handleRequest($request);
+        //Añadiendo comentarios
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $user = $this->getUser();
+            $comentarios->setUser($user);//añade el usuario logueado a la tabla comentarios
+            $comentarios->setPosts($post);//añade el id del post a la tabla comentarios
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comentarios);
+            $em->flush();
+            /**
+             * redirige a la misma página 
+             * porque la documentación de Symfony ( handling-form-submissions ) también..
+             *  muestra un ejemplo que redirige a otro controlador.
+             */
+            return $this->redirect($request->getUri());//redirigir
+        }
+        $miscomentarios = $em->getRepository(Comentarios::class)->findOneBy(['posts'=>$id]);
         return $this->render('posts/verPost.html.twig', [
             'post' => $post,
+            'comentarios' => $form->createView(),
+            'mis_comentarios' => $miscomentarios,
         ]);
+        
     }
 
     /**
