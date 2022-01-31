@@ -19,10 +19,14 @@ class ComentariosRepository extends ServiceEntityRepository
         parent::__construct($registry, Comentarios::class);
     }
 
-    public function MostrarTodosLosComentarios(){
+    public function MostrarComentarios($id){
         return $this->getEntityManager()->createQuery(
-        
-        );
+        'SELECT c.id, c.comentario, c.fecha_publicacion, user.nombre
+        FROM App:Comentarios c
+        JOIN c.user user
+        JOIN c.posts posts
+        WHERE c.posts='.$id
+        )->getResult();
     }
     // /**
     //  * @return Comentarios[] Returns an array of Comentarios objects

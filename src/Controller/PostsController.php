@@ -86,11 +86,11 @@ class PostsController extends AbstractController
              */
             return $this->redirect($request->getUri());//redirigir
         }
-        $miscomentarios = $em->getRepository(Comentarios::class)->findOneBy(['posts'=>$id]);
+        $comentarios_post = $em->getRepository(Comentarios::class)->MostrarComentarios($id);
         return $this->render('posts/verPost.html.twig', [
             'post' => $post,
             'comentarios' => $form->createView(),
-            'mis_comentarios' => $miscomentarios,
+            'comentarios_post' => $comentarios_post,
         ]);
         
     }
