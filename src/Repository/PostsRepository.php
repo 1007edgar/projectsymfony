@@ -24,7 +24,16 @@ class PostsRepository extends ServiceEntityRepository
             'SELECT post.id, post.titulo, post.foto, post.fecha_publicacion, user.nombre
             FROM App:Posts post
             JOIN post.user user'
-        );//quitamos getResult() par paginar, porque requiere la query, no! el resutlado
+        );//quitamos getResult() para paginar, porque requiere la query, no! el resutlado
+    }
+
+    public function buscador_posts($nombre){
+        return $this->getEntityManager()->createQuery(
+            "SELECT post.id, post.titulo, post.foto, post.fecha_publicacion, user.nombre
+            FROM App:Posts post
+            JOIN post.user user
+            WHERE post.titulo LIKE '%".$nombre."%'"
+        )->getResult();
     }
     // /**
     //  * @return Posts[] Returns an array of Posts objects

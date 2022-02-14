@@ -21,7 +21,10 @@
     </div>
     <div class="row">
         <!-- Colummna de post -->
-        <div class="col-md-8">
+        <div class="col-md-8" id="titulo">
+            <div class="imagen_id">
+                
+            </div>
             <!--<h2 class="my-4"></h2>-->
             {% for article in pagination %}
             <!-- post -->
@@ -44,8 +47,22 @@
 
         <!-- Barra Lateral -->
         <div class="col-md-4">
-            <!-- Comentarios -->
+            <!-- Buscar posts -->
             <div class="card my-4">
+                <h5 class="card-header">Buscar Posts</h5>
+                <div class="card-body">
+                   
+                        <div class="input-group">
+                            <input type="text" id="form_search" class="form-control" placeholder="Buscar...">
+                            <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="button">Go!</button>
+                            </span>
+                        </div>
+                   
+                </div>
+            </div>
+            <!-- Comentarios -->
+            <div class="card my-3">
                 <h5 class="card-header">Mis Comentarios</h5>
                 <div class="card-body">
                     <ul class="list-unstyled mb-0">
@@ -68,4 +85,11 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ asset('jquery/buscador_posts.js') }}"></script>
 {% endblock %}

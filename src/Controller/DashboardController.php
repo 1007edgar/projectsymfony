@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Posts;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,7 +29,6 @@ class DashboardController extends AbstractController
                 $request->query->getInt('page', 1), /*page number*/
                 2 /*limit per page*/
             );
-        
             return $this->render('dashboard/index.html.twig', [
                 'controller_name' => 'Posts Creados por Usuarios',
                 //'posts' => $posts,
@@ -39,5 +39,19 @@ class DashboardController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         
+    }
+
+    /**
+     * @Route("search_posts", options={"expose"=true}, name="search_posts")
+     */
+    public function search_posts(Request $request): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $buscar = $request->request->get('data');
+            $titulo = $em->getRepository(Posts::class)->buscador_posts($buscar);
+            return $this->json($titulo);
+        }
+        //return $this->render('$0.html.twig', []);
     }
 }

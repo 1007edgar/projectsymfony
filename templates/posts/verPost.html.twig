@@ -10,13 +10,14 @@
         <div class="row">
             <!-- Columna que describe el post -->
             <div class="col-lg-8">
+                <i class="bi bi-hand-thumbs-up float-left"></i>
                 <!-- Título -->
                 <h2 class="mt-4">{{ post.titulo }}</h2>
                 <hr>
                 <!-- Date/Time -->
                 <p>Posted on {{ post.fechapublicacion | date('F jS \\a\\t g:ia') }}</p>
                 <hr>
-                <img class="rounded" src="{{ asset('uploads/photos/'~post.foto) }}"></td>               
+                <img class="rounded img-fluid" src="{{ asset('uploads/photos/'~post.foto) }}"></td>               
                 <hr>
                 <!-- Contenido del post -->
                 <p class="lead">

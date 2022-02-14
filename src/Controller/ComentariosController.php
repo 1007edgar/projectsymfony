@@ -13,9 +13,9 @@ class ComentariosController extends AbstractController
     /**
      * @Route("/comentarios", name="comentarios")
      */
-    public function index(Request $request, $id): Response
+    /*public function index(Request $request, $id): Response
     {
         
         return $this->render('comentarios/index.html.twig');
-    }
+    }*/
 }
