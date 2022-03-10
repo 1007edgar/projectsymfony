@@ -21,7 +21,7 @@
     </div>
     <div class="row">
         <!-- Colummna de post -->
-        <div class="col-md-8" id="titulo">
+        <div class="col-md-8">
             <div class="imagen_id">
                 
             </div>
@@ -51,12 +51,15 @@
             <div class="card my-4">
                 <h5 class="card-header">Buscar Posts</h5>
                 <div class="card-body">
-                   
                         <div class="input-group">
-                            <input type="text" id="form_search" class="form-control" placeholder="Buscar...">
-                            <span class="input-group-btn">
-                            <button class="btn btn-secondary" type="button">Go!</button>
-                            </span>
+                                    <input type="text" id="form_search" class="form-control" placeholder="Buscar...">
+                                    <span class="input-group-btn">
+                                    <button class="btn btn-secondary" type="button">Go!</button>
+                                    </span>
+                                    <ul id="titulo">
+                                        
+                                    </ul>
+                            
                         </div>
                    
                 </div>
@@ -80,7 +83,7 @@
             </div>
         </div>
         <!-- Paginación -->
-        <div class="navigation">
+        <div class="navigation" id="navigation">
             {{ knp_pagination_render(pagination) }}
         </div>
     </div>

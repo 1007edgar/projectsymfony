@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use App\Repository\PostsRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=PostsRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\PostsRepository")
  */
 class Posts
 {
@@ -60,6 +62,7 @@ class Posts
     {
         $this->likes = '';
         $this->fecha_publicacion = new \DateTime();
+        $this->comentarios = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,5 +148,27 @@ class Posts
     public function setUser($user): void
     {
         $this->user = $user;
+    }
+
+    public function addComentario(Comentarios $comentario): self
+    {
+        if (!$this->comentarios->contains($comentario)) {
+            $this->comentarios[] = $comentario;
+            $comentario->setPosts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComentario(Comentarios $comentario): self
+    {
+        if ($this->comentarios->removeElement($comentario)) {
+            // set the owning side to null (unless already changed)
+            if ($comentario->getPosts() === $this) {
+                $comentario->setPosts(null);
+            }
+        }
+
+        return $this;
     }
 }
